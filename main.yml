@@ -1,7 +1,9 @@
 ---
 - hosts: localhost
+  gather_facts: no
   user: jyao1
   connection: local
+  gather_facts: no
 
   vars_files:
     - vars/main.yml

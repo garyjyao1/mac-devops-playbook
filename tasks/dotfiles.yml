@@ -2,8 +2,8 @@
 # Install my dotfiles.
 - name: Clone dotfiles repository (if it doesn't already exist).
   git:
-    repo: {{ dotfiles_repo }}
-    dest: {{ dotfiles_repo_local_destination }}
+    repo: "{{ dotfiles_repo }}"
+    dest: "{{ dotfiles_repo_local_destination }}"
   sudo: no
 
 - name: Check if .bash_profile is a link.
@@ -21,8 +21,8 @@
 
 - name: Link .bash_profile into home folder.
   file:
-    src: {{ dotfiles_repo_local_destination }}/.bash_profile"
-    dest: "~/.bash_profile"
+    src: "{{ dotfiles_repo_local_destination }}/.bash_profile"
+    dest: ~/.bash_profile
     state: link
   sudo: no
 
