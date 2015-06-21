@@ -1,0 +1,35 @@
+---
+# Install Textmate
+- name: check if mate is installed
+  command: which mate
+  register: mate_installed
+  ignore_errors: yes
+  changed_when: False
+
+- name: set fact mate_installed
+  set_fact: mate_installed={{ mate_installed.rc == 0 }}
+  when: mate_installed is defined
+  changed_when: False
+
+- name: in case Textmate needs to be installed, determine if the package needs to be downloaded
+  stat:
+    path=/Applications/TextMate.app
+  when: not mate_installed
+  register: mate_package_check
+
+- name: download Textmate
+  get_url: url=https://github.com/textmate/textmate/releases/download/v2.0-beta.7.1/TextMate_2.0-beta.7.1.tbz dest=~/Downloads/TextMate_2.0-beta.7.1.tbz
+  when: not mate_installed and not mate_package_check|skipped and not mate_package_check.stat.exists
+
+- name: untar Textmate
+  unarchive: src=~/Downloads/TextMate_2.0-beta.7.1.tbz dest=/Applications
+  when: not mate_installed and not mate_package_check|skipped and not mate_package_check.stat.exists
+  sudo: yes
+
+- name: create synlink for mate
+  file:
+    src: /Applications/TextMate.app/Contents/Resources/mate
+    dest: /usr/local/bin/mate
+    state: link
+  when: not mate_installed
+  sudo: yes
