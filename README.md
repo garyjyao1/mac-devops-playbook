@@ -6,6 +6,7 @@ This playbook installs and configures software I use on my Mac for work.
 - [geerlingguy/mac-dev-playbook](https://github.com/geerlingguy/mac-dev-playbook) is where most code based from.
 - [Boxen](https://github.com/boxen) is the comparable project using puppet, looks very good but it's in puppet.
 - [Kitchplan](https://github.com/kitchenplan/kitchenplan) is the comparable project in chef.
+
 ##Author:
 Gary Yao, 2015
 (originally forked from [geerlingguy/mac-dev-playbook](https://github.com/geerlingguy/mac-dev-playbook))
