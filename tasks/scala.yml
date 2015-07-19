@@ -1,0 +1,29 @@
+---
+# Install Scala
+- name: check if scala is installed
+  command: which scala
+  register: scala_installed
+  ignore_errors: yes
+  changed_when: False
+
+- name: set fact scala_installed
+  set_fact: scala_installed={{ scala_installed.rc == 0 }}
+  when: scala_installed is defined
+  changed_when: False
+
+- name: download Scala
+  get_url: url=http://downloads.typesafe.com/scala/2.11.6/scala-2.11.6.tgz dest=~/Downloads/scala-2.11.6.tgz
+  when: not scala_installed
+
+- name: untar Scala
+  unarchive: src=~/Downloads/scala-2.11.6.tgz dest=/usr/share
+  when: not scala_installed
+  sudo: yes
+
+- name: create synlink for scala
+  file:
+    src: /use/share/scala-2.11.6.tgz
+    dest: /usr/share/scala
+    state: link
+  when: not scala_installed
+  sudo: yes

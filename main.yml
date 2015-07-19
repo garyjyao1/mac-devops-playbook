@@ -9,5 +9,6 @@
     - vars/main.yml
 
   tasks:
-    #- include: tasks/dotfiles.yml
+    - include: tasks/dotfiles.yml
     - include: tasks/textmate.yml
+    - include: tasks/scala.yml
